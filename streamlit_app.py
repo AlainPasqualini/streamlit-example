@@ -35,10 +35,16 @@ for comparison, commercial and Industrial batteries (coupled with PV) went throu
 """
 st.header('Other hypothesis:')
 """
-•	_battery round-trip efficiency: 92% (source: Lazard, for Li-ion)
-•	the consumer relies on its battery for 50% of its total energy consumption
-example: an consumer previously consuming 10MWh each day from the grid will need to invest enough to get 5MWh each day from battery discharge, and to generate (5+5/0.92)=10.43 of electricity (note that the calculation takes into account the 0.92 from battery efficiency)
-•	security of supply factor: 140%. Example: The 10.43MWh/day of solar energy required in the previous example are increased to 14.6, to take into account interday and interseason variability of renewables power generation
+•	battery round-trip efficiency: 92% (source: Lazard, for Li-ion)
+"""
+"""
+•	the consumer relies on its battery for 50% of its total energy consumption.
+_Example: an consumer previously consuming 10MWh each day from the grid will need to invest enough to get 5MWh each day from battery discharge, and to generate (5+5/0.92)=10.43 of electricity (note that the calculation takes into account the 0.92 from battery efficiency)_
+"""
+"""
+•	security of supply factor: 140%. _Example: The 10.43MWh/day of solar energy required in the previous example are increased to 14.6, to take into account interday and interseason variability of renewables power generation._
+"""
+"""
 •	electricity from the grid, at wholesale price, is valued at 40€/MWh for 2021 and beyond_
 """
 
