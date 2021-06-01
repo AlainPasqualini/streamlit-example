@@ -47,6 +47,8 @@ _Example: a consumer previously consuming 10MWh each day from the grid will need
 
 
 In order to keep things simple, I approximated the categories of energy consumers and their behavior when facing this binary choice:
+"""
+"""
 •	remain on the grid, and keep paying ever-increasing T&D fares and electricity bill
 """
 """
@@ -130,4 +132,4 @@ for y in range(2021,2036):
   
 st.write(data)
 
-st.write(leaving_large(-0.1))
+st.write(leaving_large((data.loc[2035,'off-grid energy cost']/data.loc[2035-1,'grid energy cost (large consumer, excl. VAT)'])-1))
