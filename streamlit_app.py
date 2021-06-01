@@ -130,7 +130,8 @@ for y in range(2021,2036):
   data.loc[y,'grid energy cost (large consumer, excl. VAT)']=40+data.loc[y,'adjust_coeff']*data.loc[y,'TD_large']
   data.loc[y,'grid energy cost (medium consumer, excl. VAT)']=40+data.loc[y,'adjust_coeff']*data.loc[y,'TD_medium']
   data.loc[y,'grid energy cost (residential consumer, incl. VAT)']=40+data.loc[y,'adjust_coeff']*data.loc[y,'TD_resid']
-  
+
+data=data.dropna(axis=1)
 st.write(data)
 
-st.write(leaving_large((data.loc[2035,'off-grid energy cost']/data.loc[2035-1,'grid energy cost (large consumer, excl. VAT)'])-1))
+#st.write(leaving_large((data.loc[2035,'off-grid energy cost']/data.loc[2035-1,'grid energy cost (large consumer, excl. VAT)'])-1))
