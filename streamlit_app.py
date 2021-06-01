@@ -119,9 +119,9 @@ for y in range(2021,2036):
   data.loc[y,'TD_medium']=data.loc[y-1,'TD_medium']*(1+TD_fare_escalation/100)
   data.loc[y,'TD_resid']=data.loc[y-1,'TD_resid']*(1+TD_fare_escalation/100)
   data.loc[y,'sum_TD']=data.loc[y,'TD_large']+data.loc[y,'TD_medium']+data.loc[y,'TD_resid']
-  data.loc[y,'left_large']=leaving_large((data.loc[y,'off-grid energy cost']/data.loc[y-1,'grid energy cost (large consumer, excl. VAT)'])-1)
-  data.loc[y,'left_medium']=leaving_medium((data.loc[y,'off-grid energy cost']/data.loc[y-1,'grid energy cost (medium consumer, excl. VAT)'])-1)
-  data.loc[y,'left_resid']=leaving_resid((data.loc[y,'off-grid energy cost']/data.loc[y-1,'grid energy cost (residential consumer, incl. VAT)'])-1)
+  #data.loc[y,'left_large']=leaving_large((data.loc[y,'off-grid energy cost']/data.loc[y-1,'grid energy cost (large consumer, excl. VAT)'])-1)
+  #data.loc[y,'left_medium']=leaving_medium((data.loc[y,'off-grid energy cost']/data.loc[y-1,'grid energy cost (medium consumer, excl. VAT)'])-1)
+  #data.loc[y,'left_resid']=leaving_resid((data.loc[y,'off-grid energy cost']/data.loc[y-1,'grid energy cost (residential consumer, incl. VAT)'])-1)
   data.loc[y,'SUM_TD_after_left']=data.loc[y,'TD_large']*(1-data.loc[y,'left_large'])+data.loc[y,'TD_medium']*(1-data.loc[y,'left_medium'])+data.loc[y,'TD_resid']*(1-data.loc[y,'left_resid'])
   data.loc[y,'adjust_coeff']=data.loc[y,'sum_TD']/data.loc[y,'SUM_TD_after_left']
   data.loc[y,'grid energy cost (large consumer, excl. VAT)']=0.04+data.loc[y,'adjust_coeff']*data.loc[y,'TD_large']
