@@ -3,6 +3,7 @@ import altair as alt
 import math
 import pandas as pd
 import streamlit as st
+import matplotlib.pyplot as plt
 
 st.title('Interactive ‘what if’ analysis: electricity consumers going off-grid with renewables + batteries')
 """
@@ -134,8 +135,25 @@ for y in range(2021,2036):
 data=data.dropna(axis=1)
 st.write(data)
 #st.altair_chart(alt.Chart(data, height=500, width=500).mark_line(color='#0068c9', opacity=0.5).encode(alt.X('year'), alt.Y('off-grid energy cost'))
+fig=plt.figure()
+ax = fig.add_subplot(111)
+plt.title("Price of electricity off-grid and on-grid, and share of consumer segments seeking grid independancy",fontsize=20)
+plt.ylabel("€/MWh",color='blue')
+ax.plot(data.index.values,data['off-grid energy cost'],color='blue')
+ax.plot(data.index.values,data['grid energy cost (large consumer, excl. VAT)'],color='blue')
+ax.plot(data.index.values,data['grid energy cost (medium consumer, excl. VAT)'],color='blue')
+ax.plot(data.index.values,data['grid energy cost (residential consumer, incl. VAT)'],color='blue')
+ax.legend()
+ax2=ax.twinx()
+ax2.set_ylabel("Share of customer segment leaving the grid",color="red")
+ax.plot(data.index.values,data['left_large'],color='blue')
+ax.plot(data.index.values,data['left_medium'],color='blue')
+ax.plot(data.index.values,data['left_resid'],color='blue')
+_=ax2.set_ylim([0,1])
+
 st.line_chart(data['off-grid energy cost'])
-st.line_chart(data['grid energy cost (large consumer, excl. VAT)'])
+#st.line_chart(data['grid energy cost (large consumer, excl. VAT)'])
+st.plotly_chart(fig)
 """
 Quite unexpectedly, for most of the simulations: 
 """
