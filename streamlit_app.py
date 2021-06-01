@@ -158,7 +158,7 @@ st.line_chart(data['off-grid energy cost'])
 data['Year']=data.index
 
 base = alt.Chart(data).encode(
-    alt.X('Year', axis=alt.Axis(title=None))
+    alt.X('Year:T', axis=alt.Axis(title=None))
 )
 
 line1 = base.mark_line(stroke='#5276A7', interpolate='monotone').encode(
