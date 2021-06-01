@@ -135,11 +135,11 @@ for y in range(2021,2036):
 data=data.dropna(axis=1)
 st.write(data)
 #st.altair_chart(alt.Chart(data, height=500, width=500).mark_line(color='#0068c9', opacity=0.5).encode(alt.X('year'), alt.Y('off-grid energy cost'))
-fig=plt.figure()
-ax = fig.add_subplot(111)
-plt.title("Price of electricity off-grid and on-grid, and share of consumer segments seeking grid independancy",fontsize=20)
-plt.ylabel("€/MWh",color='blue')
-ax.plot(data.index.values,data['off-grid energy cost'],color='blue')
+#fig=plt.figure()
+#ax = fig.add_subplot(111)
+#plt.title("Price of electricity off-grid and on-grid, and share of consumer segments seeking grid independancy",fontsize=20)
+#plt.ylabel("€/MWh",color='blue')
+#ax.plot(data.index.values,data['off-grid energy cost'],color='blue')
 #ax.plot(data.index.values,data['grid energy cost (large consumer, excl. VAT)'],color='blue')
 #ax.plot(data.index.values,data['grid energy cost (medium consumer, excl. VAT)'],color='blue')
 #ax.plot(data.index.values,data['grid energy cost (residential consumer, incl. VAT)'],color='blue')
@@ -153,7 +153,26 @@ ax.plot(data.index.values,data['off-grid energy cost'],color='blue')
 
 st.line_chart(data['off-grid energy cost'])
 #st.line_chart(data['grid energy cost (large consumer, excl. VAT)'])
-st.plotly_chart(fig)
+#st.plotly_chart(fig)
+
+base = alt.Chart(data).encode(
+    alt.X('year', axis=alt.Axis(title=None))
+)
+
+line1 = base.mark_line(stroke='#5276A7', interpolate='monotone').encode(
+    alt.Y('grid energy cost (large consumer, excl. VAT)',
+          axis=alt.Axis(title='€/MWh', titleColor='#57A44C'))
+)
+
+line2 = base.mark_line(stroke='#5276A7', interpolate='monotone').encode(
+    alt.Y('off-grid energy cost',
+          axis=alt.Axis(title='second axis', titleColor='#5276A7'))
+)
+
+alt.layer(line1, line2).resolve_scale(
+    y = 'independent'
+)
+
 """
 Quite unexpectedly, for most of the simulations: 
 """
