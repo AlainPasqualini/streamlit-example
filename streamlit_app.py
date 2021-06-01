@@ -39,16 +39,27 @@ st.header('Other hypothesis:')
 """
 """
 •	the consumer relies on its battery for 50% of its total energy consumption.
-_Example: an consumer previously consuming 10MWh each day from the grid will need to invest enough to get 5MWh each day from battery discharge, and to generate (5+5/0.92)=10.43 of electricity (note that the calculation takes into account the 0.92 from battery efficiency)_
+_Example: a consumer previously consuming 10MWh each day from the grid will need to invest enough to get 5MWh each day from battery discharge, and to generate (5+5/0.92)=10.43MWh of electricity (note that the calculation takes into account the 0.92 from battery efficiency)_
 """
 """
-•	security of supply factor: 140%. _Example: The 10.43MWh/day of solar energy required in the previous example are increased to 14.6, to take into account interday and interseason variability of renewables power generation._
+•	security of supply factor: 140%. _Example: The 10.43MWh/day of solar energy required in the previous example are increased to 14.6MWh/day, to take into account interday and interseason variability of renewables power generation._
 """
 """
 •	electricity from the grid, at wholesale price, is valued at 40€/MWh for 2021 and beyond_
-"""
 
+
+In order to keep things simple, I approximated the categories of energy consumers and their behavior when facing this binary choice:
+•	remain on the grid, and keep paying ever-increasing T&D fares and electricity bill
+"""
+"""
+•	or, invest in PV+battery system, then go off-grid
+"""
+"""
+Both choices are compared in terms of cost per MWh of consumed electricity for the next 10 years. Energy intensive industries (such as glass, for which energy represents more than 30% of the total cost) might be early adopters: going off-grid as soon as a slight economy is possible. Meanwhile, other industries take longer to be convinced. Here is a chart to illustrate my hypotheses:
 #st.image('./header.png')
 
-
-
+The model will also take into account that the more consumers leave, the less consumers remain to finance the grid; therefore, forcing T&D operators to increase the fares to break even. This will come on top of natural T&D price escalation, and leads to a positive feedback loop inciting more consumer leave the grid.
+"""
+st.header('Outputs:')
+"""
+And finally, the output of the what-if analysis:
