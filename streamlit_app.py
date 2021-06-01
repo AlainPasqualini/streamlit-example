@@ -169,9 +169,9 @@ line2 = base.mark_line(stroke='#5276A7', interpolate='monotone').encode(
           axis=alt.Axis(title='second axis', titleColor='#5276A7'))
 )
 
-alt.layer(line1, line2).resolve_scale(
+st.altair_chart(alt.layer(line1, line2).resolve_scale(
     y = 'independent'
-)
+))
 
 """
 Quite unexpectedly, for most of the simulations: 
