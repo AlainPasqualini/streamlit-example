@@ -128,5 +128,4 @@ for y in range(2021,2036):
   data.loc[y,'grid energy cost (medium consumer, excl. VAT)']=0.04+data.loc[y,'adjust_coeff']*data.loc[y,'TD_medium']
   data.loc[y,'grid energy cost (residential consumer, incl. VAT)']=0.04+data.loc[y,'adjust_coeff']*data.loc[y,'TD_resid']
   
-  
 st.write(data)
