@@ -83,11 +83,11 @@ def leaving_resid(x):
 
 if geo=='Germany':
   data_geo=data_GE
+else:
+  if geo=='Spain':
+    data_geo=data_SP
   else:
-    if geo=='Spain':
-      data_geo=data_SP
-    else:
-      data_geo=data_FR
+    data_geo=data_FR
 
 for y in list([2018,2019,2020]):
   #make cols off-grid when data ready
