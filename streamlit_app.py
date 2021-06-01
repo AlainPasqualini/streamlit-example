@@ -133,6 +133,10 @@ for y in range(2021,2036):
 
 data=data.dropna(axis=1)
 st.write(data)
+st.altair_chart(alt.Chart(data, height=500, width=500)
+    .mark_line(color='#0068c9', opacity=0.5)
+    .encode(alt.X('year'), alt.Y('off-grid energy cost'))
+
 """
 Quite unexpectedly, for most of the simulations: 
 """
