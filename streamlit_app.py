@@ -133,5 +133,16 @@ for y in range(2021,2036):
 
 data=data.dropna(axis=1)
 st.write(data)
-
-#st.write(leaving_large((data.loc[2035,'off-grid energy cost']/data.loc[2035-1,'grid energy cost (large consumer, excl. VAT)'])-1))
+"""
+Quite unexpectedly, for most of the simulations: 
+"""
+"""
+•	the large consumers (which are modeled to be the greediest, and therefore more keen to switch off-grid), in fact stay on the grid. This is because the T&D fares applied to them are very low, even with some price escalation.
+"""
+"""
+•	the residential and medium consumers are the first to isolate from the grid. It is because they bear a huge share of the T&D financing, and therefore are most impacted by the price escalation.
+"""
+"""
+In conclusion, it may be possible that the electricity grid becomes mostly a Transmission business: linking centralized power generation (nuclear, gaz, utility-scaled renewables,...) and centralized power consumption.
+Meanwhile, smaller customers, which today bear most of the T&D bill, may turn to grid indpendancy; provided they meet the requirements to do so (land availability, decision-making process,...).
+"""
