@@ -79,3 +79,30 @@ def leaving_medium(x):
 def leaving_resid(x):
   out=0.1*max(0,min((-x+0.4)/0.2,1))
   return out
+#when LCOE ready, load it here into data
+
+if geo='Germany':
+  data_geo=data_GE
+  else:
+    if geo='Spain':
+      data_geo=data_SP
+    else:
+      data_geo=data_FR
+
+for y in list([2018,2019,2020]):
+  #make cols off-grid when data ready
+  data.loc[y,'TD_large']=data_geo.loc[y,'large IC']-0.04
+  data.loc[y,'TD_medium']=data_geo.loc[y,'medium IC']-0.04
+  data.loc[y,'TD_resid']=data_geo.loc[y,'residential']-0.04
+  data.loc[y,'sum_TD']=data.loc[y,'TD_large']+data.loc[y,'TD_medium']+data.loc[y,'TD_resid']
+  data.loc[y,'left_large']=0
+  data.loc[y,'left_medium']=0
+  data.loc[y,'left_resid']=0
+  data.loc[y,'SUM_TD_after_left']=data.loc[y,'TD_large']*(1-data.loc[y,'left_large'])+data.loc[y,'TD_medium']*(1-data.loc[y,'left_medium'])+data.loc[y,'TD_resid']*(1-data.loc[y,'left_resid'])
+  data.loc[y,'adjust_coeff']=data.loc[y,'sum_TD']/data.loc[y,'SUM_TD_after_left']
+  data.loc[y,'grid energy cost (large consumer, excl. VAT)']=0.04+data.loc[y,'adjust_coeff']*data.loc[y,'TD_large']
+  data.loc[y,'grid energy cost (medium consumer, excl. VAT)']=0.04+data.loc[y,'adjust_coeff']*data.loc[y,'TD_medium']
+  data.loc[y,'grid energy cost (residential consumer, incl. VAT)']=0.04+data.loc[y,'adjust_coeff']*data.loc[y,'TD_resid']
+  
+  
+st.write(data)
