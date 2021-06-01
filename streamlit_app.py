@@ -4,35 +4,39 @@ import math
 import pandas as pd
 import streamlit as st
 
+st.title('Interactive ‘what if’ analysis: electricity consumers going off-grid with renewables + batteries')
 """
-# Welcome to Streamlit!
+# Interactive ‘what if’ analysis: electricity consumers going off-grid with renewables + batteries
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+The continuous cost reduction in renewables now makes them profitable enough to compete with other assets, without subsidies (when focusing on LCOE calculation, a methodology taking into account both capital and O&M expenses). However, to truly go off-grid, a consumer needs not only to generate power with renewables, but also match generation and consumption.
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+Electrochemical batteries can complete a renewables asset to reach balance between generation and load. Yet, they remain an expensive, and less profitable, investment. However, the constant increase in T&D (Transport and Distribution) and consumption taxes, now reaching about 70% of the complete electricity price (link), might change the game faster than we think.
 
-In the meantime, below is an example of what you can do with just a few lines of code:
+For this article, I wanted to experiment with interactive python code (and deployment/hosting of this code). I hope you might enjoy tweaking the parameters of this ‘what if’ analysis.
+
+#Input parameters:
+
 """
+st.header('Input parameters:')
 
 data_DE=pd.read_csv('DE.csv')
 
-total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+geo=st.selectbox('Select a geography', ['France','Germany','Spain'])
 
-Point = namedtuple('Point', 'x y')
-data = []
+TD_fare_escalation = st.slider("Set T&D fares escalation for 2021 and beyond (%/year):", -5, 15, 4)
+"""
+for comparison, most EU countries went throught about 4% escalation over 2010-2020 (source: Eurostat)
+"""
+solar_evolution = st.slider("Set PV price evolution for 2021 and beyond (%/year):", -20, 5, -9)
+"""
+for comparison, utility-scale solar LCOE had a CAGR of -11% over 2010-2020 (source: Lazard publications)
+"""
+battery_evolution = st.slider("Set batteries price evolution for 2021 and beyond (%/year):", -20, 5, -4)
+"""
+for comparison, commercial and Industrial batteries (coupled with PV) had a CAGR of -4% over 2018-2020 (source: Lazard publications)
+"""
 
-points_per_turn = total_points / num_turns
+#st.image('./header.png')
 
-for curr_point_num in range(total_points):
-    curr_turn, i = divmod(curr_point_num, points_per_turn)
-    angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-    radius = curr_point_num / total_points
-    x = radius * math.cos(angle)
-    y = radius * math.sin(angle)
-    data.append(Point(x, y))
 
-st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-    .mark_circle(color='#0068c9', opacity=0.5)
-    .encode(x='x:Q', y='y:Q'))
+
