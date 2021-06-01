@@ -9,7 +9,7 @@ st.title('Interactive ‘what if’ analysis: electricity consumers going off-gr
 
 The continuous cost reduction in renewables now makes them profitable enough to compete with other assets, without subsidies (when focusing on LCOE calculation, a methodology taking into account both capital and O&M expenses). However, to truly go off-grid, a consumer needs not only to generate power with renewables, but also match generation and consumption.
 
-Electrochemical batteries can complete a renewables asset to reach balance between generation and load. Yet, they remain an expensive, and less profitable, investment. However, the constant increase in T&D (Transport and Distribution) and consumption taxes, now reaching about 70% of the complete electricity price (link), might change the game faster than we think.
+Electrochemical batteries can complete a renewables asset to reach balance between generation and demand. Yet, they remain an expensive, and less profitable, investment. However, the constant increase in T&D (Transport and Distribution) and consumption taxes, now reaching about 70% of the complete electricity price (in the EU), might change the game faster than we think.
 
 For this article, I wanted to experiment with interactive python code (and deployment/hosting of this code). I hope you might enjoy tweaking the parameters of this ‘what if’ analysis.
 
@@ -95,6 +95,22 @@ for y in list([2018,2019,2020]):
   data.loc[y,'TD_medium']=data_geo.loc[y,'medium IC']-0.04
   data.loc[y,'TD_resid']=data_geo.loc[y,'residential']-0.04
   data.loc[y,'sum_TD']=data.loc[y,'TD_large']+data.loc[y,'TD_medium']+data.loc[y,'TD_resid']
+  data.loc[y,'left_large']=0
+  data.loc[y,'left_medium']=0
+  data.loc[y,'left_resid']=0
+  data.loc[y,'SUM_TD_after_left']=data.loc[y,'TD_large']*(1-data.loc[y,'left_large'])+data.loc[y,'TD_medium']*(1-data.loc[y,'left_medium'])+data.loc[y,'TD_resid']*(1-data.loc[y,'left_resid'])
+  data.loc[y,'adjust_coeff']=data.loc[y,'sum_TD']/data.loc[y,'SUM_TD_after_left']
+  data.loc[y,'grid energy cost (large consumer, excl. VAT)']=0.04+data.loc[y,'adjust_coeff']*data.loc[y,'TD_large']
+  data.loc[y,'grid energy cost (medium consumer, excl. VAT)']=0.04+data.loc[y,'adjust_coeff']*data.loc[y,'TD_medium']
+  data.loc[y,'grid energy cost (residential consumer, incl. VAT)']=0.04+data.loc[y,'adjust_coeff']*data.loc[y,'TD_resid']
+  
+for y in range(2021,2036):
+  #make cols off-grid when data ready
+  data.loc[y,'TD_large']=data.loc[y-1,'TD_large']*(1+TD_fare_escalation/100)
+  data.loc[y,'TD_medium']=data.loc[y-1,'TD_medium']*(1+TD_fare_escalation/100)
+  data.loc[y,'TD_resid']=data.loc[y-1,'TD_resid']*(1+TD_fare_escalation/100)
+  data.loc[y,'sum_TD']=data.loc[y,'TD_large']+data.loc[y,'TD_medium']+data.loc[y,'TD_resid']
+  #update this code when LCOE and LCOS ready
   data.loc[y,'left_large']=0
   data.loc[y,'left_medium']=0
   data.loc[y,'left_resid']=0
