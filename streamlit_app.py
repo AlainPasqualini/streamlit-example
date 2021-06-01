@@ -64,9 +64,10 @@ st.header('Outputs:')
 """
 And finally, the output of the what-if analysis:
 """
-data_GE=pd.read_csv('GE.csv',index_col=0)
-data_FR=pd.read_csv('FR.csv',index_col=0)
-data_SP=pd.read_csv('SP.csv',index_col=0)
+#Eurostat data is in kWh, need to multipy by 1000 to have MWh
+data_GE=pd.read_csv('GE.csv',index_col=0)*1000
+data_FR=pd.read_csv('FR.csv',index_col=0)*1000
+data_SP=pd.read_csv('SP.csv',index_col=0)*1000
 #for €/USD conversion:1.15 applied
 data_LCOS=pd.read_csv('LCOS.csv',index_col=0)/1.15
 data=pd.read_csv('article2.csv',index_col=0)
@@ -100,18 +101,18 @@ data.loc[2020,'LCOE_solar']=36.5/1.15
 for y in list([2018,2019,2020]):
   data.loc[y,'LCOS_storage']=data_LCOS.loc[y,'mean']
   data.loc[y,'off-grid energy cost']=data.loc[y,'LCOS_storage']*0.5+data.loc[y,'LCOE_solar']*1.4*(1+1/0.92)
-  data.loc[y,'TD_large']=data_geo.loc[y,'large IC']-0.04
-  data.loc[y,'TD_medium']=data_geo.loc[y,'medium IC']-0.04
-  data.loc[y,'TD_resid']=data_geo.loc[y,'residential']-0.04
+  data.loc[y,'TD_large']=data_geo.loc[y,'large IC']-40
+  data.loc[y,'TD_medium']=data_geo.loc[y,'medium IC']-40
+  data.loc[y,'TD_resid']=data_geo.loc[y,'residential']-40
   data.loc[y,'sum_TD']=data.loc[y,'TD_large']+data.loc[y,'TD_medium']+data.loc[y,'TD_resid']
   data.loc[y,'left_large']=0
   data.loc[y,'left_medium']=0
   data.loc[y,'left_resid']=0
   data.loc[y,'SUM_TD_after_left']=data.loc[y,'TD_large']*(1-data.loc[y,'left_large'])+data.loc[y,'TD_medium']*(1-data.loc[y,'left_medium'])+data.loc[y,'TD_resid']*(1-data.loc[y,'left_resid'])
   data.loc[y,'adjust_coeff']=data.loc[y,'sum_TD']/data.loc[y,'SUM_TD_after_left']
-  data.loc[y,'grid energy cost (large consumer, excl. VAT)']=0.04+data.loc[y,'adjust_coeff']*data.loc[y,'TD_large']
-  data.loc[y,'grid energy cost (medium consumer, excl. VAT)']=0.04+data.loc[y,'adjust_coeff']*data.loc[y,'TD_medium']
-  data.loc[y,'grid energy cost (residential consumer, incl. VAT)']=0.04+data.loc[y,'adjust_coeff']*data.loc[y,'TD_resid']
+  data.loc[y,'grid energy cost (large consumer, excl. VAT)']=40+data.loc[y,'adjust_coeff']*data.loc[y,'TD_large']
+  data.loc[y,'grid energy cost (medium consumer, excl. VAT)']=40+data.loc[y,'adjust_coeff']*data.loc[y,'TD_medium']
+  data.loc[y,'grid energy cost (residential consumer, incl. VAT)']=40+data.loc[y,'adjust_coeff']*data.loc[y,'TD_resid']
   
 for y in range(2021,2036):
   data.loc[y,'LCOE_solar']=data.loc[y-1,'LCOE_solar']*(1+solar_evolution/100)
@@ -126,9 +127,9 @@ for y in range(2021,2036):
   data.loc[y,'left_resid']=leaving_resid((data.loc[y,'off-grid energy cost']/data.loc[y-1,'grid energy cost (residential consumer, incl. VAT)'])-1)
   data.loc[y,'SUM_TD_after_left']=data.loc[y,'TD_large']*(1-data.loc[y,'left_large'])+data.loc[y,'TD_medium']*(1-data.loc[y,'left_medium'])+data.loc[y,'TD_resid']*(1-data.loc[y,'left_resid'])
   data.loc[y,'adjust_coeff']=data.loc[y,'sum_TD']/data.loc[y,'SUM_TD_after_left']
-  data.loc[y,'grid energy cost (large consumer, excl. VAT)']=0.04+data.loc[y,'adjust_coeff']*data.loc[y,'TD_large']
-  data.loc[y,'grid energy cost (medium consumer, excl. VAT)']=0.04+data.loc[y,'adjust_coeff']*data.loc[y,'TD_medium']
-  data.loc[y,'grid energy cost (residential consumer, incl. VAT)']=0.04+data.loc[y,'adjust_coeff']*data.loc[y,'TD_resid']
+  data.loc[y,'grid energy cost (large consumer, excl. VAT)']=40+data.loc[y,'adjust_coeff']*data.loc[y,'TD_large']
+  data.loc[y,'grid energy cost (medium consumer, excl. VAT)']=40+data.loc[y,'adjust_coeff']*data.loc[y,'TD_medium']
+  data.loc[y,'grid energy cost (residential consumer, incl. VAT)']=40+data.loc[y,'adjust_coeff']*data.loc[y,'TD_resid']
   
 st.write(data)
 
