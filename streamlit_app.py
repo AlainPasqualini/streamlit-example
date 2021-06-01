@@ -158,7 +158,7 @@ st.line_chart(data['off-grid energy cost'])
 data['Year']=data.index
 
 base = alt.Chart(data).encode(
-    alt.X('Year:T', axis=alt.Axis(title=None))
+    alt.X('Year', axis=alt.Axis(title=None))
 )
 
 line1 = base.mark_line(stroke='#5276A7', interpolate='monotone').encode(
@@ -166,9 +166,9 @@ line1 = base.mark_line(stroke='#5276A7', interpolate='monotone').encode(
           axis=alt.Axis(title='€/MWh', titleColor='#57A44C'))
 )
 
-line2 = base.mark_line(stroke='#5276A7', interpolate='monotone').encode(
+line2 = base.mark_line(stroke='#5276A8', interpolate='monotone').encode(
     alt.Y('off-grid energy cost',
-          axis=alt.Axis(title='second axis', titleColor='#5276A7'))
+          axis=alt.Axis(title='second axis', titleColor='#5276A8'))
 )
 
 st.altair_chart(alt.layer(line1, line2).resolve_scale(
