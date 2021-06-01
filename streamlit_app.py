@@ -17,8 +17,6 @@ For this article, I wanted to experiment with interactive python code (and deplo
 """
 st.header('Input parameters:')
 
-data_DE=pd.read_csv('DE.csv')
-
 geo=st.selectbox('Select a geography', ['France','Germany','Spain'])
 
 TD_fare_escalation = st.slider("Set T&D fares escalation for 2021 and beyond (%/year):", -5, 15, 4)
@@ -64,3 +62,20 @@ st.header('Outputs:')
 """
 And finally, the output of the what-if analysis:
 """
+data_GE=pd.read_csv('GE.csv',index_col=0)
+data_FR=pd.read_csv('FR.csv',index_col=0)
+data_SP=pd.read_csv('SP.csv',index_col=0)
+data_LCOS=pd.read_csv('LCOS.csv',index_col=0)
+data=pd.read_csv('article2.csv',index_col=0)
+
+def leaving_large(x):
+  out=max(0,min(-x/0.2,1))
+  return out
+
+def leaving_medium(x):
+  out=0.5*max(0,min((-x+0.2)/0.2,1))
+  return out
+
+def leaving_resid(x):
+  out=0.1*max(0,min((-x+0.4)/0.2,1))
+  return out
