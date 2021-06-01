@@ -155,8 +155,10 @@ st.line_chart(data['off-grid energy cost'])
 #st.line_chart(data['grid energy cost (large consumer, excl. VAT)'])
 #st.plotly_chart(fig)
 
+data['Year']=data.index
+
 base = alt.Chart(data).encode(
-    alt.X('year', axis=alt.Axis(title=None))
+    alt.X('Year', axis=alt.Axis(title=None))
 )
 
 line1 = base.mark_line(stroke='#5276A7', interpolate='monotone').encode(
