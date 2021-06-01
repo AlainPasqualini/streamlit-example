@@ -40,7 +40,7 @@ st.header('Other hypothesis:')
 _Example: a consumer previously consuming 10MWh each day from the grid will need to invest enough to get 5MWh each day from battery discharge, and to generate (5+5/0.92)=10.43MWh of electricity (note that the calculation takes into account the 0.92 from battery efficiency)_
 """
 """
-•	security of supply factor: 140%. _Example: The 10.43MWh/day of solar energy required in the previous example are increased to 14.6MWh/day, to take into account interday and interseason variability of renewables power generation._
+•	security of supply factor: 200%. _Example: The 10.43MWh/day of solar energy required in the previous example are increased to 20.8MWh/day, to take into account interday and interseason variability of renewables power generation._
 """
 """
 •	electricity from the grid, at wholesale price, is valued at 40€/MWh for 2021 and beyond
@@ -100,7 +100,7 @@ data.loc[2020,'LCOE_solar']=36.5/1.15
 
 for y in list([2018,2019,2020]):
   data.loc[y,'LCOS_storage']=data_LCOS.loc[y,'mean']
-  data.loc[y,'off-grid energy cost']=data.loc[y,'LCOS_storage']*0.5+data.loc[y,'LCOE_solar']*1.4*(0.5+0.5/0.92)
+  data.loc[y,'off-grid energy cost']=data.loc[y,'LCOS_storage']*0.5+data.loc[y,'LCOE_solar']*2*(0.5+0.5/0.92)
   data.loc[y,'TD_large']=data_geo.loc[y,'large IC']-40
   data.loc[y,'TD_medium']=data_geo.loc[y,'medium IC']-40
   data.loc[y,'TD_resid']=data_geo.loc[y,'residential']-40
@@ -117,7 +117,7 @@ for y in list([2018,2019,2020]):
 for y in range(2021,2036):
   data.loc[y,'LCOE_solar']=data.loc[y-1,'LCOE_solar']*(1+solar_evolution/100)
   data.loc[y,'LCOS_storage']=data.loc[y-1,'LCOS_storage']*(1+battery_evolution/100)
-  data.loc[y,'off-grid energy cost']=data.loc[y,'LCOS_storage']*0.5+data.loc[y,'LCOE_solar']*1.4*(0.5+0.5/0.92)
+  data.loc[y,'off-grid energy cost']=data.loc[y,'LCOS_storage']*0.5+data.loc[y,'LCOE_solar']*2*(0.5+0.5/0.92)
   data.loc[y,'TD_large']=data.loc[y-1,'TD_large']*(1+TD_fare_escalation/100)
   data.loc[y,'TD_medium']=data.loc[y-1,'TD_medium']*(1+TD_fare_escalation/100)
   data.loc[y,'TD_resid']=data.loc[y-1,'TD_resid']*(1+TD_fare_escalation/100)
