@@ -81,10 +81,10 @@ def leaving_resid(x):
   return out
 #when LCOE ready, load it here into data
 
-if geo='Germany':
+if geo=='Germany':
   data_geo=data_GE
   else:
-    if geo='Spain':
+    if geo=='Spain':
       data_geo=data_SP
     else:
       data_geo=data_FR
