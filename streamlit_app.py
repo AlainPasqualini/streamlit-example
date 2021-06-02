@@ -136,6 +136,7 @@ data=data.dropna(axis=1)
 colsMWh=['off-grid energy cost','grid energy cost (large consumer, excl. VAT)','grid energy cost (medium consumer, excl. VAT)','grid energy cost (residential consumer, incl. VAT)']
 colscustomers=['left_large','left_medium','left_resid']
 data_MWh=data[colsMWh]
+data_MWh=data_MWh.rename(columns={'off-grid energy cost':'off-grid','grid energy cost (large consumer, excl. VAT)':'large consumer (excl. VAT)','grid energy cost (medium consumer, excl. VAT)':'medium consumer (excl. VAT)','grid energy cost (residential consumer, incl. VAT)':'residential consumer (incl. VAT)'})
 data_MWh=data_MWh.reset_index().melt('year')
 data_customers=data[colscustomers]
 data_customers=data_customers.rename(columns={'left_large':'Large consumers','left_medium':'Medium consumers','left_resid':'Residential consumers'})
@@ -145,13 +146,13 @@ st.altair_chart(alt.Chart(data_MWh).mark_line().encode(
     x='year',
     y=alt.Y('value', axis=alt.Axis(title='€/MWh')),
     color='variable'
-).properties(title="Projeted price of electricity, off-grid and on-grid").configure_legend(orient='top-right'),use_container_width=True)
+).properties(title="Projeted price of electricity, off-grid and on-grid").configure_legend(orient='top-left'),use_container_width=True)
                                      
 st.altair_chart(alt.Chart(data_customers).mark_line().encode(
     x='year',
     y=alt.Y('value', axis=alt.Axis(format='%',title=None)),
     color='variable'
-).properties(title="Projected share of customers leaving the grid").configure_legend(orient='top-right'),use_container_width=True)
+).properties(title="Projected share of customers leaving the grid").configure_legend(orient='top-left'),use_container_width=True)
 
 """
 Quite unexpectedly, for most of the simulations: 
