@@ -77,11 +77,11 @@ def leaving_large(x):
   return out
 
 def leaving_medium(x):
-  out=0.5*max(0,min((-x-0.2)/0.3,1))
+  out=0.5*max(0,min((-x-0.2)/0.4,1))
   return out
 
 def leaving_resid(x):
-  out=0.1*max(0,min((-x-0.6)/0.4,1))
+  out=0.15*max(0,min((-x-0.5)/0.6,1))
   return out
 
 
