@@ -148,8 +148,8 @@ st.altair_chart(alt.Chart(data_MWh).mark_line().encode(
     color='variable'
 ).properties(title="Projeted price of electricity, off-grid and on-grid").configure_legend(orient='top-left'),use_container_width=True)
                                      
-st.altair_chart(alt.Chart(data_customers).mark_line().encode(
-    x='year',
+st.altair_chart(alt.Chart(data_customers).mark_line(interpolate="monotone").encode(
+    x=alt.X('year', axis=alt.Axis(format='f',title='Year')),
     y=alt.Y('value', axis=alt.Axis(format='%',title=None)),
     color='variable'
 ).properties(title="Projected share of customers leaving the grid").configure_legend(orient='top-left'),use_container_width=True)
