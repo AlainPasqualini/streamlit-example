@@ -159,11 +159,11 @@ cols=['off-grid energy cost','left_large','left_medium','left_resid','grid energ
 data_bis=data[cols]
 data_bis=data_bis.reset_index().melt('year')
 
-alt.Chart(data_bis).mark_line().encode(
+st.altair_chart(alt.Chart(data_bis).mark_line().encode(
     x='year',
     y='value',
     color='variable'
-)
+))
 
 """
 data['Year']=data.index
