@@ -45,7 +45,9 @@ _Example: a consumer previously consuming 10MWh each day from the grid will need
 """
 •	electricity from the grid, at wholesale price, is valued at 40€/MWh for 2021 and beyond
 
-
+"""
+st.header('Modeling consumer Behaviour')
+"""
 In order to keep things simple, I approximated the categories of energy consumers and their behavior when facing this binary choice:
 """
 """
@@ -56,7 +58,10 @@ In order to keep things simple, I approximated the categories of energy consumer
 """
 """
 Both choices are compared in terms of cost per MWh of consumed electricity for the next 10 years. Energy intensive industries (such as glass, for which energy represents more than 30% of the total cost) might be early adopters: going off-grid as soon as a slight economy is possible. Meanwhile, other industries take longer to be convinced. Here is a chart to illustrate my hypotheses:
-#st.image('./header.png')
+"""
+st.image('./customer_segments.jpg')
+"""
+
 
 The model will also take into account that the more consumers leave, the less consumers remain to finance the grid; therefore, forcing T&D operators to increase the fares to break even. This will come on top of natural T&D price escalation, and leads to a positive feedback loop inciting more consumer leave the grid.
 """
