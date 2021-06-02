@@ -140,20 +140,20 @@ colscustomers=['left_large','left_medium','left_resid']
 data_MWh=data[colsMWh]
 data_MWh=data_MWh.reset_index().melt('year')
 data_customers=data[colscustomers]
-data_customers=data_customers.reset_index().melt('year')
 data_customers=data_customers.rename(columns={'left_large':'Share of large consumers going off-grid','left_medium':'Share of medium consumers going off-grid','left_resid':'Share of residential consumers going off-grid'})
+data_customers=data_customers.reset_index().melt('year')
 
 st.altair_chart(alt.Chart(data_MWh).mark_line().encode(
     x='year',
-    y='value',
+    y=alt.Y('value', axis=alt.Axis(title='€/MWh')),
     color='variable'
-),use_container_width=True)
+).properties(title="Projeted price of electricity, off-grid and on-grid"),use_container_width=True)
                                      
 st.altair_chart(alt.Chart(data_customers).mark_line().encode(
     x='year',
-    y=alt.Y('value', axis=alt.Axis(format='$',title=None)),
+    y=alt.Y('value', axis=alt.Axis(format='%',title=None)),
     color='variable'
-),use_container_width=True)
+).properties(title="Projected share of customers leaving the grid"),use_container_width=True)
 
 """
 Quite unexpectedly, for most of the simulations: 
