@@ -3,7 +3,6 @@ import altair as alt
 import math
 import pandas as pd
 import streamlit as st
-import matplotlib.pyplot as plt
 
 st.title('Interactive ‘what if’ analysis: electricity consumers going off-grid with renewables + batteries')
 """
@@ -78,11 +77,11 @@ def leaving_large(x):
   return out
 
 def leaving_medium(x):
-  out=0.5*max(0,min((-x+0.2)/0.3,1))
+  out=0.5*max(0,min((-x-0.2)/0.3,1))
   return out
 
 def leaving_resid(x):
-  out=0.1*max(0,min((-x+0.6)/0.4,1))
+  out=0.1*max(0,min((-x-0.6)/0.4,1))
   return out
 
 
@@ -133,7 +132,6 @@ for y in range(2021,2036):
   data.loc[y,'grid energy cost (residential consumer, incl. VAT)']=40+data.loc[y,'adjust_coeff']*data.loc[y,'TD_resid']
 
 data=data.dropna(axis=1)
-st.write(data)
 
 colsMWh=['off-grid energy cost','grid energy cost (large consumer, excl. VAT)','grid energy cost (medium consumer, excl. VAT)','grid energy cost (residential consumer, incl. VAT)']
 colscustomers=['left_large','left_medium','left_resid']
