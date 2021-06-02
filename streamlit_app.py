@@ -78,11 +78,11 @@ def leaving_large(x):
   return out
 
 def leaving_medium(x):
-  out=0.5*max(0,min((-x+0.2)/0.2,1))
+  out=0.5*max(0,min((-x+0.2)/0.3,1))
   return out
 
 def leaving_resid(x):
-  out=0.1*max(0,min((-x+0.4)/0.2,1))
+  out=0.1*max(0,min((-x+0.6)/0.4,1))
   return out
 
 
@@ -134,58 +134,26 @@ for y in range(2021,2036):
 
 data=data.dropna(axis=1)
 st.write(data)
-#st.altair_chart(alt.Chart(data, height=500, width=500).mark_line(color='#0068c9', opacity=0.5).encode(alt.X('year'), alt.Y('off-grid energy cost'))
-#fig=plt.figure()
-#ax = fig.add_subplot(111)
-#plt.title("Price of electricity off-grid and on-grid, and share of consumer segments seeking grid independancy",fontsize=20)
-#plt.ylabel("€/MWh",color='blue')
-#ax.plot(data.index.values,data['off-grid energy cost'],color='blue')
-#ax.plot(data.index.values,data['grid energy cost (large consumer, excl. VAT)'],color='blue')
-#ax.plot(data.index.values,data['grid energy cost (medium consumer, excl. VAT)'],color='blue')
-#ax.plot(data.index.values,data['grid energy cost (residential consumer, incl. VAT)'],color='blue')
-#ax.legend()
-#ax2=ax.twinx()
-#ax2.set_ylabel("Share of customer segment leaving the grid",color="red")
-#ax.plot(data.index.values,data['left_large'],color='blue')
-#ax.plot(data.index.values,data['left_medium'],color='blue')
-#ax.plot(data.index.values,data['left_resid'],color='blue')
-#_=ax2.set_ylim([0,1])
 
-st.line_chart(data['off-grid energy cost'])
-#st.line_chart(data['grid energy cost (large consumer, excl. VAT)'])
-#st.plotly_chart(fig)
+colsMWh=['off-grid energy cost','grid energy cost (large consumer, excl. VAT)','grid energy cost (medium consumer, excl. VAT)','grid energy cost (residential consumer, incl. VAT)']
+colscustomers=['left_large','left_medium','left_resid']
+data_MWh=data[colsMWh]
+data_MWh=data_MWh.reset_index().melt('year')
+data_customers=data[colscustomers]
+data_customers=data_customers.reset_index().melt('year')
+data_customers=data_customers.rename(columns={'left_large':'Share of large consumers going off-grid','left_medium':'Share of medium consumers going off-grid','left_resid':'Share of residential consumers going off-grid'}
 
-cols=['off-grid energy cost','left_large','left_medium','left_resid','grid energy cost (large consumer, excl. VAT)','grid energy cost (medium consumer, excl. VAT)','grid energy cost (residential consumer, incl. VAT)']
-data_bis=data[cols]
-data_bis=data_bis.reset_index().melt('year')
-
-st.altair_chart(alt.Chart(data_bis).mark_line().encode(
+st.altair_chart(alt.Chart(data_MWh).mark_line().encode(
     x='year',
     y='value',
     color='variable'
 ),use_container_width=True)
-
-"""
-data['Year']=data.index
-
-base = alt.Chart(data).encode(
-    alt.X('Year', axis=alt.Axis(title=None))
-)
-
-line1 = base.mark_line(color='#5276A7', interpolate='monotone').encode(
-    alt.Y('grid energy cost (large consumer, excl. VAT)',
-          axis=alt.Axis(title='€/MWh', titleColor='#57A44C'))
-)
-
-line2 = base.mark_line(color='#5276A8', interpolate='monotone').encode(
-    alt.Y('off-grid energy cost',
-          axis=alt.Axis(title='second axis', titleColor='#5276A8'))
-)
-
-st.altair_chart(alt.layer(line1, line2).resolve_scale(
-    y = 'independent'
-))
-"""
+                                     
+st.altair_chart(alt.Chart(data_customers).mark_line().encode(
+    x='year',
+    y=alt.Y('value', axis=alt.Axis(format='$',title=None))
+    color='variable'
+),use_container_width=True)
 
 """
 Quite unexpectedly, for most of the simulations: 
