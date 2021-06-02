@@ -151,7 +151,7 @@ st.altair_chart(alt.Chart(data_MWh).mark_line().encode(
                                      
 st.altair_chart(alt.Chart(data_customers).mark_line().encode(
     x='year',
-    y=alt.Y('value', axis=alt.Axis(format='$',title=None))
+    y=alt.Y('value', axis=alt.Axis(format='$',title=None)),
     color='variable'
 ),use_container_width=True)
 
