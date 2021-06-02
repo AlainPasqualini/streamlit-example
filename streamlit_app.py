@@ -155,18 +155,29 @@ st.line_chart(data['off-grid energy cost'])
 #st.line_chart(data['grid energy cost (large consumer, excl. VAT)'])
 #st.plotly_chart(fig)
 
+cols=['off-grid energy cost','left_large','left_medium','left_resid','grid energy cost (large consumer, excl. VAT)','grid energy cost (medium consumer, excl. VAT)','grid energy cost (residential consumer, incl. VAT)']
+data_bis=data[cols]
+data_bis=data_bis.reset_index().melt('year')
+
+alt.Chart(data_bis).mark_line().encode(
+    x='year',
+    y='value',
+    color='variable'
+)
+
+"""
 data['Year']=data.index
 
 base = alt.Chart(data).encode(
     alt.X('Year', axis=alt.Axis(title=None))
 )
 
-line1 = base.mark_line(stroke='#5276A7', interpolate='monotone').encode(
+line1 = base.mark_line(color='#5276A7', interpolate='monotone').encode(
     alt.Y('grid energy cost (large consumer, excl. VAT)',
           axis=alt.Axis(title='€/MWh', titleColor='#57A44C'))
 )
 
-line2 = base.mark_line(stroke='#5276A8', interpolate='monotone').encode(
+line2 = base.mark_line(color='#5276A8', interpolate='monotone').encode(
     alt.Y('off-grid energy cost',
           axis=alt.Axis(title='second axis', titleColor='#5276A8'))
 )
@@ -174,6 +185,7 @@ line2 = base.mark_line(stroke='#5276A8', interpolate='monotone').encode(
 st.altair_chart(alt.layer(line1, line2).resolve_scale(
     y = 'independent'
 ))
+"""
 
 """
 Quite unexpectedly, for most of the simulations: 
