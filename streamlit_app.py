@@ -141,7 +141,7 @@ data_MWh=data[colsMWh]
 data_MWh=data_MWh.reset_index().melt('year')
 data_customers=data[colscustomers]
 data_customers=data_customers.reset_index().melt('year')
-data_customers=data_customers.rename(columns={'left_large':'Share of large consumers going off-grid','left_medium':'Share of medium consumers going off-grid','left_resid':'Share of residential consumers going off-grid'}
+data_customers=data_customers.rename(columns={'left_large':'Share of large consumers going off-grid','left_medium':'Share of medium consumers going off-grid','left_resid':'Share of residential consumers going off-grid'})
 
 st.altair_chart(alt.Chart(data_MWh).mark_line().encode(
     x='year',
