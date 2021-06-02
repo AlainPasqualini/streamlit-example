@@ -163,7 +163,7 @@ st.altair_chart(alt.Chart(data_bis).mark_line().encode(
     x='year',
     y='value',
     color='variable'
-))
+),use_container_width=True)
 
 """
 data['Year']=data.index
