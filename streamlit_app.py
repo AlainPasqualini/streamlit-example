@@ -151,7 +151,7 @@ st.altair_chart(alt.Chart(data_MWh).mark_line().encode(
     x=alt.X('year', axis=alt.Axis(format='f',title=None)),
     y=alt.Y('value', axis=alt.Axis(title='€/MWh')),
     color='variable'
-).properties(title="Projeted price of electricity, off-grid and on-grid").configure_legend(orient='top-left'),use_container_width=True)
+).properties(title="Projected price of electricity, off-grid and on-grid").configure_legend(orient='top-left'),use_container_width=True)
                                      
 st.altair_chart(alt.Chart(data_customers).mark_line(interpolate="monotone").encode(
     x=alt.X('year', axis=alt.Axis(format='f',title='Year')),
